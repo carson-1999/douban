@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>书籍信息修改页面</title>
+    <!--引入JQuery-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+    <!--引入js文件-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <!--引入css文件-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/public.css') }}" />
+</head>
+
+<body>
+    <div>
+        <section class="publicMian">
+            <div class="right">
+                <div class="location">
+                    <strong>你现在所在的位置是:</strong>
+                    <span>书籍信息修改页面</span>
+                </div>
+                <div class="bookAdd">
+                    <form action="{{ url_for('updateBook',id=results[0]) }}" method="post">
+                        <div><strong>书名: </strong><input type="text" value="{{results[1]}}" name="name" /><br />
+                        </div>
+                        <div><strong>作者: </strong><input type="text" value="{{results[2]}}" name="author" /><br />
+                        </div>
+                        <div><strong>出版社: </strong><input type="text" value="{{results[3]}}" name="publisher" /><br />
+                        </div>
+                        <div><strong>出版年份: </strong><input type="text" value="{{results[4]}}"
+                                name="publish_year" /><br /></div>
+                        <div><strong>页数: </strong><input type="text" value="{{results[5]}}" name="pages" /><br />
+                        </div>
+                        <div><strong>价格: </strong><input type="text" value="{{results[6]}}" name="price" /><br />
+                        </div>
+                        <div><strong>装订方式: </strong><input type="text" value="{{results[7]}}" name="binding" /><br />
+                        </div>
+                        <div><strong>所属系列: </strong><input type="text" value="{{results[8]}}" name="series" /><br />
+                        </div>
+                        <div><strong>ISBN号: </strong><input type="text" value="{{results[9]}}" name="ISBN" /><br />
+                        </div>
+                        <div class="bookAddBtn">
+                            <input type="submit" value="修改" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
