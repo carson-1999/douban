@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>豆瓣Top250 数据管理系统</title>
+    <!--引入JQuery-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-1.8.3.min.js') }}"></script>
+    <!--引入js文件-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <!--引入css文件-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/public.css') }}" />
+</head>
+
+
+<body>
+
+    <!--引用头部相关片段-->
+    <div>
+        <section class="publicMian">
+            <!--大主体框里面的内容-->
+            <div id="bookDiv" class="right">
+                <div class="location">
+                    <strong>你现在所在的位置是:</strong>
+                    <span>豆瓣Top250数据查看页面</span>
+                </div>
+                <!--搜索栏,查询特定书籍信息-->
+                <div class="search">
+                    <form method="post" action="/">
+                        <span>书名：</span>
+                        <input name="name" class="input-text" type="text">
+                        <span>作者：</span>
+                        <input name="author" class="input-text" type="text">
+                        <input value="查 询" type="submit" id="searchbutton">
+                        <a href="{{ url_for('addBook')}}">添加书籍</a>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!--显示书籍数据的表单元素-->
+        <table class="bookTable" cellpadding="0" cellspacing="0" id="myTable">
+            <tr class="firstTr">
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>出版年份</th>
+                <th>页数</th>
+                <th>价格</th>
+                <th>装订方式</th>
+                <th>所属系列</th>
+                <th>ISBN号</th>
+                <th>删除此书本</th>
+                <th>修改此书本</th>
+            </tr>
+            {% if not results%}
+            <tbody>
+                <tr>
+                    <td colspan="5">没有书籍数据，请添加书籍信息</td>
+                </tr>
+            </tbody>
+            {% endif %}
+            {% if results %}
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td align="center">{{ result[1] }}</td>
+                    <td align="center">{{ result[2] }}</td>
+                    <td align="center">{{ result[3] }}</td>
+                    <td align="center">{{ result[4] }}</td>
+                    <td align="center">{{ result[5] }}</td>
+                    <td align="center">{{ result[6] }}</td>
+                    <td align="center">{{ result[7] }}</td>
+                    <td align="center">{{ result[8] }}</td>
+                    <td align="center">{{ result[9] }}</td>
+                    <td>
+                        <a href="{{ url_for('deleteBook', id=result[0])}}">
+                            <img src="{{ url_for('static', filename='images/schu.png') }}" alt="删除书本"
+                                onclick="return confirm('确定删除此书籍信息吗？')">
+                        </a>
+                    </td>
+                    <td align="center">
+                        <a href="{{ url_for('changeBook', id=result[0]) }}">
+                            <img src="{{ url_for('static', filename='images/xiugai.png') }}" alt="修改书本">
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
+        </table>
+
+
+    </div>
+    </div>
+</body>
+
+<!--分页链接-->
+{% if pagination.pages|length > 1 %}
+<div class="pagination">
+    {{ pagination.links }}
+</div>
+{% endif %}
+
+</html>
